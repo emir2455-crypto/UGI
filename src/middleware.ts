@@ -11,7 +11,12 @@ function secretKey() {
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  if (PUBLIC_PATHS.some((p) => pathname.startsWith(p)) || pathname.startsWith("/_next") || pathname.startsWith("/api/public")) {
+  if (
+    PUBLIC_PATHS.some((p) => pathname.startsWith(p)) ||
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api/public") ||
+    /\.(jpg|jpeg|png|svg|webp|ico|gif)$/i.test(pathname)
+  ) {
     return NextResponse.next();
   }
 
