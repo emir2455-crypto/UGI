@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import LogoutButton from "@/components/LogoutButton";
 import type { SessionUser } from "@/lib/auth";
 
@@ -19,8 +20,8 @@ export default function Nav({ user }: { user: SessionUser }) {
       {/* Desktop sidebar */}
       <aside className="hidden md:flex md:flex-col md:w-60 md:shrink-0 border-r border-base-border bg-base-panel p-4">
         <div className="flex items-center gap-2 mb-6 px-1">
-          <span className="text-2xl">🚗</span>
-          <span className="font-bold text-lg tracking-tight text-amber">FleetView</span>
+          <Image src="/logo.jpg" alt="UGI RENT" width={32} height={32} className="rounded-full" />
+          <span className="font-bold text-lg tracking-tight text-amber">UGI RENT</span>
         </div>
         <nav className="flex flex-col gap-1 flex-1">
           {links.map((l) => (
@@ -45,8 +46,8 @@ export default function Nav({ user }: { user: SessionUser }) {
       {/* Mobile top bar */}
       <header className="md:hidden flex items-center justify-between px-4 py-3 border-b border-base-border bg-base-panel sticky top-0 z-20">
         <div className="flex items-center gap-2">
-          <span className="text-xl">🚗</span>
-          <span className="font-bold text-amber">FleetView</span>
+          <Image src="/logo.jpg" alt="UGI RENT" width={28} height={28} className="rounded-full" />
+          <span className="font-bold text-amber">UGI RENT</span>
         </div>
         <LogoutButton compact />
       </header>

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import LoginForm from "./LoginForm";
 
 export default function LoginPage({
@@ -9,8 +10,8 @@ export default function LoginPage({
     <div className="min-h-screen flex items-center justify-center p-4 bg-base-bg">
       <div className="w-full max-w-sm">
         <div className="flex flex-col items-center mb-8">
-          <span className="text-4xl mb-2">🚗</span>
-          <h1 className="text-2xl font-bold text-amber tracking-tight">FleetView</h1>
+          <Image src="/logo.jpg" alt="UGI RENT" width={96} height={96} className="rounded-full mb-3" priority />
+          <h1 className="text-2xl font-bold text-amber tracking-tight">UGI RENT</h1>
           <p className="text-zinc-500 text-sm mt-1">Gestion de flotte de location</p>
         </div>
         <LoginForm next={searchParams.next} />

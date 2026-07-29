@@ -1,6 +1,6 @@
-# FleetView
+# UGI RENT
 
-Application de gestion de flotte pour la location de véhicules (Getaround, Turo, Leboncoin, Facebook, Direct) : véhicules, réservations, calendrier, tableau de bord, finances et boîtiers à clés.
+Application de gestion de flotte pour UGI RENT — location de véhicules (Getaround, Turo, Leboncoin, Facebook, Direct) : véhicules, réservations, calendrier, tableau de bord, finances et boîtiers à clés.
 
 ## Stack technique
 

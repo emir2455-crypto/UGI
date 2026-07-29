@@ -4,8 +4,9 @@ import { getSession } from "@/lib/auth";
 import Nav from "@/components/Nav";
 
 export const metadata: Metadata = {
-  title: "FleetView",
+  title: "UGI RENT",
   description: "Gestion de flotte de location de véhicules",
+  icons: { icon: "/logo.jpg" },
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
