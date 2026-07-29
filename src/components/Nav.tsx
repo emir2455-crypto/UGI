@@ -39,6 +39,13 @@ export default function Nav({ user }: { user: SessionUser }) {
           <p className="text-xs text-zinc-500 px-1 mb-2">
             {user.name} · {user.role === "ADMIN" ? "Administrateur" : "Renfort"}
           </p>
+          <Link
+            href="/account"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-zinc-300 hover:bg-base-panel2 hover:text-amber transition-colors mb-1"
+          >
+            <span className="text-lg">⚙️</span>
+            Mon compte
+          </Link>
           <LogoutButton />
         </div>
       </aside>
@@ -49,7 +56,12 @@ export default function Nav({ user }: { user: SessionUser }) {
           <Image src="/logo.jpg" alt="UGI RENT" width={28} height={28} className="rounded-full" />
           <span className="font-bold text-amber">UGI RENT</span>
         </div>
-        <LogoutButton compact />
+        <div className="flex items-center gap-3">
+          <Link href="/account" className="text-sm text-zinc-400 px-1">
+            ⚙️
+          </Link>
+          <LogoutButton compact />
+        </div>
       </header>
 
       {/* Mobile bottom tab bar */}
