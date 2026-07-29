@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import ReservationForm from "@/components/ReservationForm";
 import { createReservation } from "@/app/actions/reservations";
 
+export const dynamic = "force-dynamic";
+
 export default async function NewReservationPage() {
   const vehicles = await prisma.vehicle.findMany({ orderBy: { plate: "asc" } });
 

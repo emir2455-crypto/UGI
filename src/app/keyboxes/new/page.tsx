@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import KeyBoxForm from "@/components/KeyBoxForm";
 import { createKeyBox } from "@/app/actions/keyboxes";
 
+export const dynamic = "force-dynamic";
+
 export default async function NewKeyBoxPage() {
   const vehicles = await prisma.vehicle.findMany({ orderBy: { plate: "asc" } });
 
