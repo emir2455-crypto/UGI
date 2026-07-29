@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background-color: #121212;
+  color: #ededed;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+input,
+select,
+textarea {
+  background-color: #1b1b1b;
+  border: 1px solid #2e2e2e;
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  color: #ededed;
+  font-size: 1rem;
+  width: 100%;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25);
+}
+
+label {
+  font-size: 0.8rem;
+  color: #a1a1aa;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: 0.6rem;
+  padding: 0.65rem 1.1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+  min-height: 44px;
+}
+
+.btn-primary {
+  background-color: #f59e0b;
+  color: #121212;
+}
+.btn-primary:hover {
+  background-color: #fbbf24;
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+}
+
+.btn-secondary {
+  background-color: #232323;
+  border: 1px solid #2e2e2e;
+  color: #ededed;
+}
+.btn-secondary:hover {
+  background-color: #2a2a2a;
+}
+
+.btn-danger {
+  background-color: #7f1d1d;
+  color: #fecaca;
+}
+.btn-danger:hover {
+  background-color: #991b1b;
+}
+
+.card {
+  background-color: #1b1b1b;
+  border: 1px solid #2e2e2e;
+  border-radius: 0.9rem;
+  padding: 1rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #a1a1aa;
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid #2e2e2e;
+  white-space: nowrap;
+}
+
+td {
+  padding: 0.6rem;
+  border-bottom: 1px solid #232323;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #333;
+  border-radius: 999px;
+}

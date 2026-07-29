@@ -1,0 +1,127 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// SQLite has no native enum support in Prisma; these fields store one of the
+// string values defined in src/lib/constants.ts and are validated at the app layer.
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         String // ADMIN | HELPER
+  createdAt    DateTime @default(now())
+}
+
+model Vehicle {
+  id                String   @id @default(cuid())
+  plate             String   @unique
+  brand             String
+  model             String
+  type              String // CITADINE | UTILITAIRE
+  year              Int
+  status            String   @default("DISPONIBLE") // DISPONIBLE | EN_LOCATION | EN_PANNE | EN_ENTRETIEN | EN_ROUTE
+  mileage           Int      @default(0)
+  nextTechnicalCtrl DateTime?
+  nextMaintenance   DateTime?
+  keysLocation      String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  reservations Reservation[]
+  incidents    Incident[]
+  maintenances Maintenance[]
+  expenses     Expense[]
+  keyBoxes     KeyBox[]
+}
+
+model Incident {
+  id          String   @id @default(cuid())
+  vehicleId   String
+  date        DateTime
+  description String
+  cost        Float    @default(0)
+  createdAt   DateTime @default(now())
+
+  vehicle Vehicle @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+}
+
+model Maintenance {
+  id        String   @id @default(cuid())
+  vehicleId String
+  date      DateTime
+  type      String
+  cost      Float    @default(0)
+  createdAt DateTime @default(now())
+
+  vehicle Vehicle @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+}
+
+model Reservation {
+  id            String   @id @default(cuid())
+  vehicleId     String
+  clientName    String
+  clientPhone   String
+  channel       String // GETAROUND | TURO | LEBONCOIN | FACEBOOK | DIRECT
+  startDate     DateTime
+  endDate       DateTime
+  dailyRate     Float
+  deposit       Float    @default(0)
+  depositMethod String // PRE_AUTH | ESPECES | VIREMENT
+  state         String   @default("ACTIVE") // ACTIVE | ANNULEE
+  cancelReason  String?
+  notes         String?
+  startMileage  Int?
+  endMileage    Int?
+  doneByHelper  Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  vehicle  Vehicle             @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  keyCodes KeyBoxCodeHistory[]
+}
+
+model Expense {
+  id          String   @id @default(cuid())
+  vehicleId   String
+  category    String // ASSURANCE | ENTRETIEN | CARBURANT | DIVERS
+  date        DateTime
+  amount      Float
+  description String?
+  createdAt   DateTime @default(now())
+
+  vehicle Vehicle @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+}
+
+model KeyBox {
+  id            String   @id @default(cuid())
+  name          String
+  location      String
+  vehicleId     String?
+  currentCode   String
+  codeChangedAt DateTime @default(now())
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  vehicle     Vehicle?            @relation(fields: [vehicleId], references: [id], onDelete: SetNull)
+  codeHistory KeyBoxCodeHistory[]
+}
+
+model KeyBoxCodeHistory {
+  id            String   @id @default(cuid())
+  keyBoxId      String
+  date          DateTime @default(now())
+  oldCode       String
+  newCode       String
+  reservationId String?
+
+  keyBox      KeyBox       @relation(fields: [keyBoxId], references: [id], onDelete: Cascade)
+  reservation Reservation? @relation(fields: [reservationId], references: [id], onDelete: SetNull)
+}
