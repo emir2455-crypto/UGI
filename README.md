@@ -5,7 +5,7 @@ Application de gestion de flotte pour la location de véhicules (Getaround, Turo
 ## Stack technique
 
 - Next.js 14 (App Router) + TypeScript
-- Prisma + SQLite (fichier local, aucune perte de données au redémarrage)
+- Prisma + PostgreSQL (base en ligne, ex. Neon/Vercel Postgres — accessible depuis n'importe où, PC comme téléphone)
 - Tailwind CSS (thème sombre / ambre, responsive mobile-first)
 - Authentification par cookie de session (JWT), deux rôles : `ADMIN` et `HELPER`
 
@@ -13,18 +13,19 @@ Application de gestion de flotte pour la location de véhicules (Getaround, Turo
 
 ```bash
 npm install
-cp .env.example .env   # puis changez SESSION_SECRET
-npm run db:push        # crée la base SQLite locale
+cp .env.example .env   # renseignez DATABASE_URL (Postgres) et SESSION_SECRET
+npm run db:push        # crée les tables dans la base Postgres
 npm run db:seed        # crée les deux comptes de connexion
 npm run dev             # http://localhost:3000
 ```
 
-Pour un usage réel (production sur votre propre serveur/NAS) :
+## Déploiement (accès depuis PC et téléphone, partout)
 
-```bash
-npm run build
-npm run start
-```
+1. Créez une base Postgres gratuite (Vercel Postgres/Neon, ou Neon.tech directement) et récupérez sa `DATABASE_URL`.
+2. Importez ce dépôt dans [Vercel](https://vercel.com/new).
+3. Dans les variables d'environnement du projet Vercel, ajoutez `DATABASE_URL` et `SESSION_SECRET`.
+4. Avant le premier déploiement (ou en local avec la même `DATABASE_URL`), lancez `npm run db:push && npm run db:seed` pour créer les tables et les comptes.
+5. Déployez. L'URL fournie par Vercel est utilisable depuis n'importe quel appareil (PC, téléphone, en 4G/5G).
 
 ## Comptes créés par le seed
 
@@ -46,5 +47,4 @@ Vous pouvez personnaliser ces identifiants avant le seed via les variables d'env
 
 ## Notes
 
-- La base de données est un simple fichier SQLite (`prisma/dev.db`, ignoré par Git). Sauvegardez ce fichier régulièrement si vous l'utilisez en production.
 - Le projet est actuellement sur Next.js 14.2.35 (dernière version de la branche 14.x). Des CVE connues sur Next.js ne sont corrigées qu'à partir de la branche 15/16 ; une montée de version majeure est possible plus tard mais implique une migration (React 19, API `cookies()`/`params` asynchrones).
